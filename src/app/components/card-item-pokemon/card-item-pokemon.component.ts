@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, inject } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, inject } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,7 +22,6 @@ export class CardItemPokemonComponent implements OnInit {
 
     collection: Pokemon[] = [];
 
-
     //Test getters/setters
     // private _test: string;
 
@@ -37,7 +36,7 @@ export class CardItemPokemonComponent implements OnInit {
 
     @Output() emitCollection = new EventEmitter<Pokemon[]>();
 
-    subscription: Subscription = new Subscription();
+    // subscription: Subscription = new Subscription();
 
     ngOnInit(): void {
         // console.log(this._test)

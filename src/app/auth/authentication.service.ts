@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../common/user.model';
 import { AlertComponent } from '../shared/alert/alert.component';
+import { Constants } from '../common/constants';
 
 export interface AuthResponseData {
     kind: string;
@@ -20,22 +21,16 @@ export interface AuthResponseData {
 })
 
 export class AuthenticationService {
-    constructor(private http: HttpClient,
-                private router: Router,
-                private alertComponent: AlertComponent) {}
-
-    // loginMsg = new BehaviorSubject<String>('');
-
+    private http = inject(HttpClient);
+    private router = inject(Router);
+    private alertComponent = inject(AlertComponent);
+    
     loginMsg = signal<String>('');
-
     loggedUser = new BehaviorSubject<User>(null);
-
-    SIGNUP_URL: string = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDdZUp4XOVlRMv6NzWbpqMMpMfvgHXELWw'
-    SIGNIN_URL: string = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDdZUp4XOVlRMv6NzWbpqMMpMfvgHXELWw'
 
     signup(email: string, password: string) {
         this.http.post<AuthResponseData>(
-            this.SIGNUP_URL,
+            Constants.SIGNUP_URL,
             {
                 email: email,
                 password: password,
@@ -52,7 +47,7 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
         this.http.post<AuthResponseData>(
-            this.SIGNIN_URL,
+            Constants.SIGNIN_URL,
             {
                 email: email,
                 password: password,
@@ -72,7 +67,7 @@ export class AuthenticationService {
                 );
                 
                 this.alertComponent.state.next('success');
-                this.loginMsg.set('You have logged in successfully!');
+                this.loginMsg.set(Constants.LOGIN_SUCCESS);
                 this.loggedUser.next(user);
                 this.router.navigate(['/']);
             },
@@ -82,13 +77,13 @@ export class AuthenticationService {
 
                 switch(error.error.error.message) {
                     case 'INVALID_PASSWORD': 
-                        this.loginMsg.set('Incorrect password, please try again.');
+                        this.loginMsg.set(Constants.INCORRECT_PWD);
                         break;
                     case 'EMAIL_NOT_FOUND':
-                        this.loginMsg.set('No registered user found with this email.');
+                        this.loginMsg.set(Constants.EMAIL_NOT_FOUND);
                         break;
                     default:
-                        this.loginMsg.set('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.')
+                        this.loginMsg.set(Constants.TOO_MANY_LOGIN_ATTEMPTS);
                         break;
                 }
             }

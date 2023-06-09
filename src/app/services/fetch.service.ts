@@ -1,11 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, catchError, map, tap, throwError } from 'rxjs';
 import { Subject } from 'rxjs';
 
 import { AuthenticationService } from '../auth/authentication.service';
 
 import { Pokemon } from '../common/pokemon.model';
+import { Constants } from '../common/constants';
 import { PokemonClass } from '../common/pokermon-class.model';
 import { User } from '../common/user.model';
 
@@ -13,15 +14,12 @@ import { User } from '../common/user.model';
     providedIn: 'root',
 })
 export class FetchService {
-    URL_API: string = 'https://pokeapi.co/api/v2/pokemon/';
-    URL_DATABASE: string = 'https://pokemon-app-4b3e8-default-rtdb.europe-west1.firebasedatabase.app/';
-
     isLoading = new BehaviorSubject<boolean>(false);
 
     user: User = null;
 
-    constructor(private http: HttpClient,
-                private authService: AuthenticationService) {}
+    private http = inject(HttpClient);
+    private authService = inject(AuthenticationService);
     
     previewPokemon = new Subject<Pokemon>();
 
@@ -30,7 +28,7 @@ export class FetchService {
         console.log(value);
 
         return this.http
-            .get<any>(this.URL_API + value)
+            .get<any>(Constants.URL_API + value)
             .pipe(
                 map((responseData) => {
                     let newPokemon = new PokemonClass(
@@ -62,16 +60,16 @@ export class FetchService {
             }
         )
         
-        return this.http.get<Pokemon[]>(this.URL_DATABASE + `${this.user.id}/pokemon.json`)
+        return this.http.get<Pokemon[]>(Constants.URL_DATABASE + `${this.user.id}/pokemon.json`)
     }
 
     private handleError(errorResponse: HttpErrorResponse) {
-        let errorMessage = 'An unknown error has occured!';
+        let errorMessage = Constants.UNKNOWN_ERR;
 
         switch(errorResponse.error) {
-            case 'Not Found':
+            case Constants.NOT_FOUND:
 
-            errorMessage = 'This pokemon was not found in the database!'
+            errorMessage = Constants.POKEMON_NOT_FOUND;
         }
 
         return throwError(() => new Error(errorMessage))

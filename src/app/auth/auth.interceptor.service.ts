@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
     HttpRequest,
     HttpHandler,
@@ -12,8 +12,8 @@ import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
-    constructor(private authService: AuthenticationService) {}
-
+    private authService = inject(AuthenticationService);
+    
     intercept(
         request: HttpRequest<unknown>,
         next: HttpHandler

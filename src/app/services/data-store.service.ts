@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '../auth/authentication.service';
 
 import { Pokemon } from '../common/pokemon.model';
+import { Constants } from '../common/constants';
 
 @Injectable({
     providedIn: 'root',
@@ -11,8 +12,6 @@ import { Pokemon } from '../common/pokemon.model';
 export class DataStoreService {
     constructor(private http: HttpClient,
                 private authService: AuthenticationService) {}
-
-    DATABASE_URL: string = 'https://pokemon-app-4b3e8-default-rtdb.europe-west1.firebasedatabase.app/';
 
     isDuplicate = new BehaviorSubject<boolean>(false);
     pokemonCollectionArr: Pokemon[] = [];
@@ -47,7 +46,7 @@ export class DataStoreService {
                     return null
                 }
 
-                this.http.put(this.DATABASE_URL + `${user.id}/pokemon.json`, this.pokemonCollectionArr)
+                this.http.put(Constants.DATABASE_URL + `${user.id}/pokemon.json`, this.pokemonCollectionArr)
                 .subscribe({
                     next: (response) => {
                         console.log(response);

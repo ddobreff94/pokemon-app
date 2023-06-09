@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
 
     constructor() {
         effect(() => {
-            console.log('message is changed')
             this.authService.loginMsg() ? this.loginMessage = this.authService.loginMsg() : ''
         })
     }
