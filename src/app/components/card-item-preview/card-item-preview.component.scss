@@ -1,0 +1,73 @@
+.card-preview {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.card__body {
+    display: flex;
+    align-items: center;
+}
+
+.card__content {
+    width: 50%;
+    text-align: left;
+}
+
+.card__content h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.card__content h4 span {
+    font-size: 24px;
+}
+
+.card__stats {
+    font-weight: 700;
+}
+
+.card__stats li + li {
+    margin-top: 10px;
+}
+
+.card__stats + p {
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.card__stats span {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.card__abilities {
+    list-style: circle;
+    padding-left: 20px;
+}
+
+.card__abilities li + li {
+    margin-top: 10px;
+}
+
+.card__aside {
+    width: 50%;
+}
+
+.card__aside img {
+    min-width: 160px;
+}
+
+.card-preview button {
+    height: 40px;
+    background-color: aquamarine;
+    font-size: 16px;
+    font-weight: 700;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.card-preview.card-preview--duplicate h2 {
+    color: red;
+}

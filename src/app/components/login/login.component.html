@@ -1,0 +1,35 @@
+<div class="section-login">
+    <div class="shell">
+        <h3>
+            Please enter your login details!
+        </h3>
+
+        <app-alert 
+            [message]="loginMessage"
+            *ngIf="loginMessage"
+            (close)="handleAlert()"
+        ></app-alert>
+
+        <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm" name="login-form" class="form-login">
+            <div class="form__row">
+                <label for="email">
+                    Email
+                </label>
+
+                <input type="email" name="email" ngModel required email>
+            </div>
+
+            <div class="form__row">
+                <label for="password">Password</label>
+
+                <input type="password" id="password" name="password" ngModel password>
+            </div>
+
+            <div class="form__actions">
+                <button type="submit" [disabled]="!loginForm.valid">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

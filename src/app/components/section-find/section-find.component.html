@@ -1,0 +1,39 @@
+<div class="section-find">
+    <div class="shell">
+        <div class="section__head">
+            <h2>
+                Welcome, please enter a pokemon name!
+            </h2>
+            
+            <form #searchForm="ngForm" (ngSubmit)="fetchPokemon(searchForm)">
+                <div>
+                    <label for="pokemon-name">
+                        Pokemon name
+                    </label>
+                    
+                    <input 
+                        type="text" 
+                        ngModel 
+                        name="name"
+                        id="pokemon-name"
+                        required
+                    >
+                </div>
+
+                <button type="submit">
+                    Find Pokemon
+                </button>
+
+                <h4 *ngIf="errorMessage">
+                    {{ errorMessage }}
+                </h4>
+            </form>
+        </div>
+
+        <div class="section__body">
+            <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+            
+            <app-card-item-preview></app-card-item-preview>
+        </div>
+    </div>
+</div>

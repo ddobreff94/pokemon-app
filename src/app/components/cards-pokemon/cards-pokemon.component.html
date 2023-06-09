@@ -1,0 +1,60 @@
+<div class="section-collection">
+    <div class="shell">
+        <h3>Your pokemon collection:</h3>
+
+        <h4 *ngIf="collection.length <= 0 && !isLoading && finishedLoading">
+            Currently empty, please add new pokemon pokemon!
+        </h4>
+
+        <div class="section__loading" *ngIf="isLoading && collection.length <= 0">
+            <h4>
+                Please wait, pokemon loading...
+            </h4>
+
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+
+        <div class="cards" *ngIf="!isLoading">
+            <div class="cards__sort" *ngIf="collection.length > 0 && !isLoading && finishedLoading">
+                <form 
+                    #sortForm="ngForm" 
+                    name="sort-form" 
+                    class="form-sort" 
+                    (change)="sortBy(sortForm)"
+                >
+                    <div class="form__row">
+                        <label for="criteria">
+                            Sort by
+                        </label>
+
+                        <select 
+                            name="criteria" 
+                            id="criteria" 
+                            [ngModel]="'Date'"
+                        >
+                            <option value="Date">
+                                Date
+                            </option>
+
+                            <option value="Name">
+                                Name
+                            </option>
+
+                            <option value="Height">
+                                Height
+                            </option>
+
+                            <option value="Weight">
+                                Weight
+                            </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="cards__items">
+                <app-card-item-pokemon class="cards__items-outer" (emitCollection)="receiveCollection($event)" test="test"></app-card-item-pokemon>
+            </div>
+        </div>
+    </div>
+</div>

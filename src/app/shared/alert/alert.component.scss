@@ -1,0 +1,18 @@
+.alert {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 204, 102, .7);
+    color: #000;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.alert.warning {
+    background-color: red;
+}
+
+.alert.success {
+    background-color: green;
+}

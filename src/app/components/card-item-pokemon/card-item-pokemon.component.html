@@ -1,0 +1,38 @@
+
+<div class="cards__item" *ngFor="let pokemon of collection; let i = index">
+    <div class="card-pokemon">
+        <h4>
+            Name: {{ pokemon.name | titlecase }}
+        </h4>
+    
+        <p>
+            Height: {{ pokemon.height }}
+        </p>
+    
+        <p>
+            Weight: {{ pokemon.weight }}
+        </p>
+        
+        <p>
+            Abilities
+        </p>
+
+        <p>
+            Added on: {{ pokemon.dateFormatted }}
+        </p>
+    
+        <ul>
+            <li *ngFor="let ability of pokemon.abilities">
+                {{ ability.ability.name }}
+            </li>
+        </ul>
+    
+        <img [src]="pokemon.sprites.front_default" alt="Sprite">
+    
+        <div class="card__actions">
+            <button type="button" (click)="removePokemon(i)">
+                Remove pokemon
+            </button>
+        </div>
+    </div>
+</div>

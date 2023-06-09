@@ -1,0 +1,39 @@
+<div class="section-signup">
+    <div class="shell">
+        <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)" name="signup-form" class="form-signup">
+            <div class="form__row">
+                <label for="email">
+                    Email
+                </label>
+
+                <input 
+                    type="email"
+                    name="email"
+                    ngModel 
+                    required 
+                    password 
+                >
+            </div>
+
+            <div class="form__row">
+                <label for="password">
+                    Password
+                </label>
+
+                <input 
+                    type="password"
+                    name="password" 
+                    password 
+                    ngModel
+                    required
+                >
+            </div>
+
+            <div class="form__actions">
+                <button type="submit">
+                    Signup
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

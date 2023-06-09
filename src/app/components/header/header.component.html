@@ -1,0 +1,43 @@
+<header class="header">
+    <div class="shell">
+        <div class="header__inner">
+            <a routerLink="/" class="logo">
+                <img 
+                    src="../../../assets/logo2.png" 
+                    alt="Logo"
+                >
+            </a>
+    
+            <nav>
+                <ul>
+                    <li *ngIf="user">
+                        Welcome {{ user.email }}!
+                    </li>
+
+                    <li *ngIf="!user">
+                        <a routerLink="login">Login</a>
+                    </li>
+    
+                    <li *ngIf="!user">
+                        <a routerLink="signup">Signup</a>
+                    </li>
+    
+                    <li *ngIf="user">
+                        <a routerLink="search">Search</a>
+                    </li>
+    
+                    <li *ngIf="user">
+                        <a routerLink="collection">My Collection</a>
+                    </li>
+
+                    <li *ngIf="user">
+                        <a 
+                            (click)="onLogout()"
+                            routerLink="/"
+                        >Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,39 @@
+.header {
+    background-color: rgba($color: #000000, $alpha: .7);
+    color: white;
+    margin-bottom: 50px;
+}
+
+.header .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .logo {
+    max-width: 70px;
+}
+
+.header .logo img {
+    width: 100%;
+}
+
+.header nav a {
+    color: white;
+    text-decoration: none;
+    transition: color .3s;
+    cursor: pointer;
+}
+
+.header nav a:hover {
+    color: aquamarine;
+}
+
+.header nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.header nav ul li {
+    padding: 0 5px;
+}

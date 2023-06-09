@@ -1,0 +1,43 @@
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+form {
+    text-align: center;
+}
+
+form div {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+form label {
+    display: block;
+    text-align: center;
+    margin: 0 auto 20px;
+}
+
+form input {
+    height: 40px;
+    font-size: 20px;
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form button {
+    height: 40px;
+    max-width: 250px;
+    width: 100%;
+    margin: 40px auto 0;
+}
+
+.section-find .section__head {
+    margin-bottom: 40px;
+}
+
+.section-find .section__body {
+    text-align: center;
+}

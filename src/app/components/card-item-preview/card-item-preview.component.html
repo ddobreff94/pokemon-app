@@ -1,0 +1,49 @@
+<div *ngIf="fetchedPokemon.name.length > 1" class="card-preview">
+    <div class="card__head">
+        <h3>Preview pokemon:</h3>
+    </div>
+
+    <div class="card__body">
+        <div class="card__content">
+            <ul class="card__stats">
+                <li>
+                    Name: <span>{{ fetchedPokemon.name | titlecase }}</span>
+                </li>
+
+                <li>
+                    Height: <span>{{ fetchedPokemon.height }}</span>
+                </li>
+
+                <li>
+                    Weight: <span>{{ fetchedPokemon.weight }}</span>
+                </li>
+            </ul>
+
+            <p>
+                Abilities
+            </p>
+
+            <ul class="card__abilities">
+                <li *ngFor="let ability of fetchedPokemon.abilities">
+                    {{ ability.ability.name | titlecase }}
+                </li>
+            </ul>
+        </div>
+
+        <aside class="card__aside">
+            <img [src]="fetchedPokemon.sprites.front_default" alt="Sprite">
+
+            <div class="card__footer">
+                <button type="button" (click)="addToCollection()">
+                    Add to my collection
+                </button>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<div class="card-preview card-preview--duplicate" *ngIf="duplicatePokemon">
+    <h2>
+        This pokemon already exists in your collection!
+    </h2>
+</div>
