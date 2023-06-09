@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../common/user.model';
@@ -24,7 +24,10 @@ export class AuthenticationService {
                 private router: Router,
                 private alertComponent: AlertComponent) {}
 
-    loginMsg = new BehaviorSubject<String>('');
+    // loginMsg = new BehaviorSubject<String>('');
+
+    loginMsg = signal<String>('');
+
     loggedUser = new BehaviorSubject<User>(null);
 
     SIGNUP_URL: string = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDdZUp4XOVlRMv6NzWbpqMMpMfvgHXELWw'
@@ -69,7 +72,7 @@ export class AuthenticationService {
                 );
                 
                 this.alertComponent.state.next('success');
-                this.loginMsg.next('You have logged in successfully!');
+                this.loginMsg.set('You have logged in successfully!');
                 this.loggedUser.next(user);
                 this.router.navigate(['/']);
             },
@@ -79,13 +82,13 @@ export class AuthenticationService {
 
                 switch(error.error.error.message) {
                     case 'INVALID_PASSWORD': 
-                        this.loginMsg.next('Incorrect password, please try again.');
+                        this.loginMsg.set('Incorrect password, please try again.');
                         break;
                     case 'EMAIL_NOT_FOUND':
-                        this.loginMsg.next('No registered user found with this email.');
+                        this.loginMsg.set('No registered user found with this email.');
                         break;
                     default:
-                        this.loginMsg.next('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.')
+                        this.loginMsg.set('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.')
                         break;
                 }
             }
@@ -94,6 +97,6 @@ export class AuthenticationService {
 
     logout() {
         this.loggedUser.next(null);
-        this.loginMsg.next('');
+        this.loginMsg.set('');
     }
 }

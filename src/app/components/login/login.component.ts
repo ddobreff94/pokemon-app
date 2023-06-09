@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, effect, inject } from '@angular/core';
 import { NgForm, FormsModule } from '@angular/forms';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
@@ -14,16 +14,19 @@ import { NgIf } from '@angular/common';
 export class LoginComponent implements OnInit {
     private authService = inject(AuthenticationService);
 
+    constructor() {
+        effect(() => {
+            console.log('message is changed')
+            this.authService.loginMsg() ? this.loginMessage = this.authService.loginMsg() : ''
+        })
+    }
+
     loginMessage: String = '';
 
     ngOnInit(): void {}
 
     onSubmit(form: NgForm) {
         this.authService.login(form.value.email, form.value.password);
-        this.authService.loginMsg
-            .subscribe(
-                response => this.loginMessage = response
-            )
         form.resetForm();
     }
 
