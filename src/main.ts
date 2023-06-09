@@ -1,12 +1,28 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { AppModule } from './app/app.module';
+
 import { environment } from './environments/environment';
+import { AppComponent } from './app/app.component';
+import { AppRoutingModule } from './app/app-routing.module';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { AuthInterceptorService } from './app/auth/auth.interceptor.service';
+import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
+import { AuthenticationService } from './app/auth/authentication.service';
+import { FetchService } from './app/services/fetch.service';
+import { DataStoreService } from './app/services/data-store.service';
+import { AlertComponent } from './app/shared/alert/alert.component';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+bootstrapApplication(AppComponent, {
+    providers: [
+        importProvidersFrom(FormsModule, BrowserModule, AppRoutingModule),
+        AlertComponent, DataStoreService, FetchService, AuthenticationService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+})
   .catch(err => console.error(err));
